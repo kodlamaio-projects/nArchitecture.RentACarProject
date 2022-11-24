@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence.Contexts;
 
@@ -11,9 +12,10 @@ using Persistence.Contexts;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(BaseDbContext))]
-    partial class BaseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221012190900_all")]
+    partial class all
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -69,16 +71,13 @@ namespace Persistence.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("Name");
 
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex(new[] { "Name" }, "UK_OperationClaims_Name")
-                        .IsUnique();
 
                     b.ToTable("OperationClaims", (string)null);
 
@@ -87,7 +86,7 @@ namespace Persistence.Migrations
                         {
                             Id = 1,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "admin",
+                            Name = "Admin",
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
@@ -204,7 +203,7 @@ namespace Persistence.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("Email");
 
                     b.Property<string>("FirstName")
@@ -237,9 +236,6 @@ namespace Persistence.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex(new[] { "Email" }, "UK_Users_Email")
-                        .IsUnique();
 
                     b.ToTable("Users", (string)null);
 
@@ -299,8 +295,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("OperationClaimId");
 
-                    b.HasIndex(new[] { "UserId", "OperationClaimId" }, "UK_UserOperationClaims_UserId_OperationClaimId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
                     b.ToTable("UserOperationClaims", (string)null);
                 });
@@ -323,16 +318,13 @@ namespace Persistence.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("Name");
 
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex(new[] { "Name" }, "UK_AdditionalServices_Name")
-                        .IsUnique();
 
                     b.ToTable("AdditionalServices", (string)null);
 
@@ -369,16 +361,13 @@ namespace Persistence.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("Name");
 
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex(new[] { "Name" }, "UK_Brands_Name")
-                        .IsUnique();
 
                     b.ToTable("Brands", (string)null);
 
@@ -537,16 +526,13 @@ namespace Persistence.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("Name");
 
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex(new[] { "Name" }, "UK_Colors_Name")
-                        .IsUnique();
 
                     b.ToTable("Colors", (string)null);
 
@@ -590,7 +576,7 @@ namespace Persistence.Migrations
 
                     b.Property<string>("TaxNo")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("TaxNo");
 
                     b.Property<DateTime>("UpdatedDate")
@@ -598,11 +584,10 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex(new[] { "CustomerId" }, "UK_CorporateCustomers_CustomerId")
+                    b.HasIndex("CustomerId")
                         .IsUnique();
 
-                    b.HasIndex(new[] { "TaxNo" }, "UK_CorporateCustomers_TaxNo")
-                        .IsUnique();
+                    b.ToTable("CorporateCustomers", (string)null);
 
                     b.HasData(
                         new
@@ -614,7 +599,6 @@ namespace Persistence.Migrations
                             TaxNo = "54154512",
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
-                    b.ToTable("CorporateCustomers", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Customer", b =>
@@ -638,8 +622,7 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex(new[] { "UserId" }, "UK_Customers_UserId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
                     b.ToTable("Customers", (string)null);
 
@@ -707,7 +690,6 @@ namespace Persistence.Migrations
                             Score = (short)1900,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
-
                 });
 
             modelBuilder.Entity("Domain.Entities.Fuel", b =>
@@ -724,16 +706,13 @@ namespace Persistence.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("Name");
 
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex(new[] { "Name" }, "UK_Fuels_Name")
-                        .IsUnique();
 
                     b.ToTable("Fuels", (string)null);
 
@@ -782,7 +761,7 @@ namespace Persistence.Migrations
 
                     b.Property<string>("NationalIdentity")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("NationalIdentity");
 
                     b.Property<DateTime>("UpdatedDate")
@@ -790,11 +769,10 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex(new[] { "CustomerId" }, "UK_IndividualCustomers_CustomerId")
+                    b.HasIndex("CustomerId")
                         .IsUnique();
 
-                    b.HasIndex(new[] { "NationalIdentity" }, "UK_IndividualCustomers_NationalIdentity")
-                        .IsUnique();
+                    b.ToTable("IndividualCustomers", (string)null);
 
                     b.HasData(
                         new
@@ -807,7 +785,6 @@ namespace Persistence.Migrations
                             NationalIdentity = "123123123123",
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
-                    b.ToTable("IndividualCustomers", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Invoice", b =>
@@ -884,7 +861,6 @@ namespace Persistence.Migrations
                             TotalRentalDate = (short)2,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
-
                 });
 
             modelBuilder.Entity("Domain.Entities.Model", b =>
@@ -918,7 +894,7 @@ namespace Persistence.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("Name");
 
                     b.Property<int>("TransmissionId")
@@ -935,9 +911,6 @@ namespace Persistence.Migrations
                     b.HasIndex("FuelId");
 
                     b.HasIndex("TransmissionId");
-
-                    b.HasIndex(new[] { "Name" }, "UK_Models_Name")
-                        .IsUnique();
 
                     b.ToTable("Models", (string)null);
 
@@ -1063,7 +1036,6 @@ namespace Persistence.Migrations
                             RentStartRentalBranchId = 2,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
-
                 });
 
             modelBuilder.Entity("Domain.Entities.RentalBranch", b =>
@@ -1152,16 +1124,13 @@ namespace Persistence.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("Name");
 
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex(new[] { "Name" }, "UK_Transmissions_Name")
-                        .IsUnique();
 
                     b.ToTable("Transmissions", (string)null);
 
